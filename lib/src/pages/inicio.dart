@@ -335,7 +335,7 @@ class _InicioPageState extends State<InicioPage> {
       setState(() {
         estacion = '96.7';
         playing = true;
-        x = 0.42;
+        x = 0.34;
         banderastring = true;
         dato == true;
       });
@@ -343,7 +343,7 @@ class _InicioPageState extends State<InicioPage> {
   }
 
   void scrollUp() {
-    start = 1708.0;
+    start = MediaQuery.of(context).size.width*4.19;
     controller.animateTo(
       start,
       duration: Duration(seconds: 1),
