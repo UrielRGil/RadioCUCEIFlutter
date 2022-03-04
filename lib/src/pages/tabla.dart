@@ -77,10 +77,11 @@ final List<MultiSelectItem<String?>> itemsHorario = [];
       )
         );
   }
-
+ //https://www.woolha.com/tutorials/flutter-using-datatable-widget-examples
   DataTable generarHorario(List<dynamic> resultado){
-    return DataTable(  
-      
+    return DataTable( 
+      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.orange),
+      decoration: BoxDecoration(border: Border.all(color: Colors.purple, width: 10)),
               columns: [
                 DataColumn(label: Text(  
                     'Hora',  

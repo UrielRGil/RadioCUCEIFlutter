@@ -112,7 +112,7 @@ class _InicioPageState extends State<InicioPage> {
 
             //contenedor medio
               Flexible(
-                flex: 8,
+                flex: 6,
                 child: SafeArea(
                   child: Container(
                     // color: Colors.black,
