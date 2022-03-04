@@ -52,17 +52,17 @@ class _InicioPageState extends State<InicioPage> {
           children: [
             //contenedor superior
               Flexible(
-                flex: 1,
+                flex: 2,
                 child: SafeArea(
                   child: Container(
-                    //color: Colors.green,
+                   // color: Colors.green,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           // color: Colors.blue,
                           width: MediaQuery.of(context).size.width * 0.15,
-                          height: MediaQuery.of(context).size.height * 0.07,
+                          height: MediaQuery.of(context).size.height * 0.08,
                           margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height*0.02,
                           ),
@@ -173,7 +173,7 @@ class _InicioPageState extends State<InicioPage> {
                               return Container(
                                 // color: Colors.white,
                                 width: MediaQuery.of(context).size.width * 0.95,
-                                height: MediaQuery.of(context).size.height * 0.10,
+                                height: MediaQuery.of(context).size.height * 0.09,
                                 // color: Colors.teal,
                 
                                 child: SingleChildScrollView(

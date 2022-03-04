@@ -18,6 +18,7 @@ class TablaPage extends StatefulWidget {
 class _TablaPageState extends State<TablaPage> {
 final List<MultiSelectItem<String?>> itemsHorario = [];
   late Future<Horario> futureHorario;
+  List<dynamic> h = [];
 
   @override
   void initState() {
@@ -27,61 +28,68 @@ final List<MultiSelectItem<String?>> itemsHorario = [];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: 
-      Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
-                colors: [Colors.purple, Colors.red]
-                )
-              ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Container(
-            child: SingleChildScrollView(
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(20),
-                child: FutureBuilder<Horario>(
-                  future: futureHorario,
-                  builder: (context, snapshot){
-                    if(snapshot.hasData){
-                      List<dynamic> h = snapshot.data!.filas;
-                      h.forEach((fila) {completarFilas(fila);});
-                      final Map<String, dynamic> disponibilidad = generarDisponibilidad(h);
-                      //Iterar sobre programa
-                      disponibilidad.forEach((k, v){
-                        //Iterar sobre dias de ese programa
-                        v.forEach((k1, v1){
-                          //Iterar sobre horas de ese programa
-                          v1.forEach((elemento){
-                            itemsHorario.add(MultiSelectItem<String>("$k el $k1 a las $elemento", "$k el $k1 a las $elemento"));
+    return MaterialApp(
+      home: 
+      Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft,
+                  colors: [Colors.purple, Colors.red]
+                  )
+                ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Container(
+              child: SingleChildScrollView(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(20),
+                  child: FutureBuilder<Horario>(
+                    future: futureHorario,
+                    builder: (context, snapshot){
+                      if(snapshot.hasData){
+                        h = snapshot.data!.filas;
+                        h.forEach((fila) {completarFilas(fila);});
+                        final Map<String, dynamic> disponibilidad = generarDisponibilidad(h);
+                        //Iterar sobre programa
+                        disponibilidad.forEach((k, v){
+                          //Iterar sobre dias de ese programa
+                          v.forEach((k1, v1){
+                            //Iterar sobre horas de ese programa
+                            v1.forEach((elemento){
+                              itemsHorario.add(MultiSelectItem<String>("$k el $k1 a las $elemento", "$k el $k1 a las $elemento"));
+                            });
                           });
                         });
-                      });
-                      print("LISTO");
-                      return generarFormulario(h);
-                    }
-                    else if(snapshot.hasError){
-                      return Text('${snapshot.error}');
-                    }
-                    return const CircularProgressIndicator();
-                  },
-                ),
-                    ),
-                ),
+                        print("LISTO");
+                        return generarFormulario(h);
+                      }
+                      else if(snapshot.hasError){
+                        return Text('${snapshot.error}');
+                      }
+                      return const CircularProgressIndicator();
+                    },
+                  ),
+                      ),
+                  ),
+            ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+        generarFormulario(h);
+      }),
       )
+     
+      
         );
+        
   }
  //https://www.woolha.com/tutorials/flutter-using-datatable-widget-examples
   DataTable generarHorario(List<dynamic> resultado){
     return DataTable( 
-      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.orange),
-      decoration: BoxDecoration(border: Border.all(color: Colors.purple, width: 10)),
+      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.purple),
               columns: [
                 DataColumn(label: Text(  
                     'Hora',  
@@ -125,7 +133,9 @@ final List<MultiSelectItem<String?>> itemsHorario = [];
                     textAlign: TextAlign.center, 
                 )),
               ],  
-              rows: [ for(List<dynamic> fila in resultado) DataRow(cells: [for(String elemento in fila) DataCell(Text(elemento, style: TextStyle(color: Colors.white),))])],  
+              rows: [ for(List<dynamic> fila in resultado) DataRow(
+                color: MaterialStateProperty.all(Colors.white),
+                cells: [for(String elemento in fila) DataCell(Text(elemento, style: TextStyle(color: Colors.red),))])],  
             );
   }
 
