@@ -120,7 +120,7 @@ class _InicioPageState extends State<InicioPage> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.35,
+                          height: MediaQuery.of(context).size.height * 0.32,
                           // color: Colors.amberAccent,
                           child: Align(
                             alignment: Alignment.center,
@@ -152,7 +152,7 @@ class _InicioPageState extends State<InicioPage> {
                           ),
                         ),
                         Container(
-                          // color: Colors.blue,
+                           //color: Colors.blue,
                           height: MediaQuery.of(context).size.height * 0.06,
                           width: MediaQuery.of(context).size.width,
                           child: FittedBox(

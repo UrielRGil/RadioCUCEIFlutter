@@ -39,47 +39,48 @@ final List<MultiSelectItem<String?>> itemsHorario = [];
                   colors: [Colors.purple, Colors.red]
                   )
                 ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
+          
+
               child: SingleChildScrollView(
                 child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(20),
-                  child: FutureBuilder<Horario>(
-                    future: futureHorario,
-                    builder: (context, snapshot){
-                      if(snapshot.hasData){
-                        h = snapshot.data!.filas;
-                        h.forEach((fila) {completarFilas(fila);});
-                        final Map<String, dynamic> disponibilidad = generarDisponibilidad(h);
-                        //Iterar sobre programa
-                        disponibilidad.forEach((k, v){
-                          //Iterar sobre dias de ese programa
-                          v.forEach((k1, v1){
-                            //Iterar sobre horas de ese programa
-                            v1.forEach((elemento){
-                              itemsHorario.add(MultiSelectItem<String>("$k el $k1 a las $elemento", "$k el $k1 a las $elemento"));
+                 
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: FutureBuilder<Horario>(
+                        future: futureHorario,
+                        builder: (context, snapshot){
+                          if(snapshot.hasData){
+                            h = snapshot.data!.filas;
+                            h.forEach((fila) {completarFilas(fila);});
+                            final Map<String, dynamic> disponibilidad = generarDisponibilidad(h);
+                            //Iterar sobre programa
+                            disponibilidad.forEach((k, v){
+                              //Iterar sobre dias de ese programa
+                              v.forEach((k1, v1){
+                                //Iterar sobre horas de ese programa
+                                v1.forEach((elemento){
+                                  itemsHorario.add(MultiSelectItem<String>("$k el $k1 a las $elemento", "$k el $k1 a las $elemento"));
+                                });
+                              });
                             });
-                          });
-                        });
-                        print("LISTO");
-                        return generarFormulario(h);
-                      }
-                      else if(snapshot.hasError){
-                        return Text('${snapshot.error}');
-                      }
-                      return const CircularProgressIndicator();
-                    },
-                  ),
+                            print("LISTO");
+                            return generarFormulario(h);
+                          }
+                          else if(snapshot.hasError){
+                            return Text('${snapshot.error}');
+                          }
+                          return const CircularProgressIndicator();
+                        },
                       ),
-                  ),
-            ),
-          ),
+                          ),
+                      
+                ),
+              ),
+            
+          
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-        generarFormulario(h);
-      }),
+       
       )
      
       
@@ -89,7 +90,7 @@ final List<MultiSelectItem<String?>> itemsHorario = [];
  //https://www.woolha.com/tutorials/flutter-using-datatable-widget-examples
   DataTable generarHorario(List<dynamic> resultado){
     return DataTable( 
-      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.purple),
+      headingRowColor: MaterialStateColor.resolveWith((states) => Colors.purple.withOpacity(0.5)),
               columns: [
                 DataColumn(label: Text(  
                     'Hora',  
@@ -134,36 +135,55 @@ final List<MultiSelectItem<String?>> itemsHorario = [];
                 )),
               ],  
               rows: [ for(List<dynamic> fila in resultado) DataRow(
-                color: MaterialStateProperty.all(Colors.white),
-                cells: [for(String elemento in fila) DataCell(Text(elemento, style: TextStyle(color: Colors.red),))])],  
+                color: MaterialStateProperty.all(Colors.white.withOpacity(0.75)),
+                cells: [for(String elemento in fila) DataCell(Text(elemento, style: TextStyle(color: Colors.pink),))])],  
             );
   }
 
   Column generarFormulario(List<dynamic> resultado) {
     return Column(
           children: <Widget>[
-            generarHorario(resultado),
+           
+
+          Container( 
+            height: MediaQuery.of(context).size.height*0.70,
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height*0.05,
+                            bottom: 10,
+                          ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SingleChildScrollView(
+                  child: generarHorario(resultado),
+                ),
+                
+              ),
+              
+              ),
+          
+            
             MultiSelectDialogField(
               items: itemsHorario,
               title: const Text("Disponibilidad de Programas"),
-              selectedColor: Colors.blue,
+              selectedColor: Colors.pink,
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.pink,
                 borderRadius: const BorderRadius.all(Radius.circular(40)),
                 border: Border.all(
-                  color: Colors.blue,
+                  color: Colors.pink,
                   width: 2,
                 ),
               ),
               buttonIcon: const Icon(
                 Icons.schedule,
-                color: Colors.blue,
+                color: Colors.white,
               ),
               buttonText: Text(
                 "Consultar Horarios",
                 style: TextStyle(
-                  color: Colors.blue[800],
-                  fontSize: 16,
+                  color: Colors.white,
+                  fontSize: 20,
                 ),
               ),
               onConfirm: (List<String?> results) {
