@@ -45,12 +45,14 @@ class _InicioPageState extends State<InicioPage> {
             gradient: LinearGradient(
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
-                colors: [Colors.purple, Colors.red])),
+                colors: [Colors.purple, Colors.red]
+                )
+              ),
         child: Column(
           children: [
             //contenedor superior
               Flexible(
-                flex: 2,
+                flex: 1,
                 child: SafeArea(
                   child: Container(
                     //color: Colors.green,
@@ -110,7 +112,7 @@ class _InicioPageState extends State<InicioPage> {
 
             //contenedor medio
               Flexible(
-                flex: 6,
+                flex: 8,
                 child: SafeArea(
                   child: Container(
                     // color: Colors.black,

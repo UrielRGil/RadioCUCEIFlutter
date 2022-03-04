@@ -28,83 +28,103 @@ final List<MultiSelectItem<String?>> itemsHorario = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      
-      ),
-      body: Container(
+      body: 
+      Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
+                colors: [Colors.purple, Colors.red]
+                )
+              ),
         child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(20),
-            child: FutureBuilder<Horario>(
-              future: futureHorario,
-              builder: (context, snapshot){
-                if(snapshot.hasData){
-                  List<dynamic> h = snapshot.data!.filas;
-                  h.forEach((fila) {completarFilas(fila);});
-                  final Map<String, dynamic> disponibilidad = generarDisponibilidad(h);
-                  //Iterar sobre programa
-                  disponibilidad.forEach((k, v){
-                    //Iterar sobre dias de ese programa
-                    v.forEach((k1, v1){
-                      //Iterar sobre horas de ese programa
-                      v1.forEach((elemento){
-                        itemsHorario.add(MultiSelectItem<String>("$k el $k1 a las $elemento", "$k el $k1 a las $elemento"));
+            child: SingleChildScrollView(
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(20),
+                child: FutureBuilder<Horario>(
+                  future: futureHorario,
+                  builder: (context, snapshot){
+                    if(snapshot.hasData){
+                      List<dynamic> h = snapshot.data!.filas;
+                      h.forEach((fila) {completarFilas(fila);});
+                      final Map<String, dynamic> disponibilidad = generarDisponibilidad(h);
+                      //Iterar sobre programa
+                      disponibilidad.forEach((k, v){
+                        //Iterar sobre dias de ese programa
+                        v.forEach((k1, v1){
+                          //Iterar sobre horas de ese programa
+                          v1.forEach((elemento){
+                            itemsHorario.add(MultiSelectItem<String>("$k el $k1 a las $elemento", "$k el $k1 a las $elemento"));
+                          });
+                        });
                       });
-                    });
-                  });
-                  print("LISTO");
-                  return generarFormulario(h);
-                }
-                else if(snapshot.hasError){
-                  return Text('${snapshot.error}');
-                }
-                return const CircularProgressIndicator();
-              },
-            ),
+                      print("LISTO");
+                      return generarFormulario(h);
+                    }
+                    else if(snapshot.hasError){
+                      return Text('${snapshot.error}');
+                    }
+                    return const CircularProgressIndicator();
+                  },
                 ),
-            ),
+                    ),
+                ),
+          ),
+        ),
       )
         );
   }
 
   DataTable generarHorario(List<dynamic> resultado){
     return DataTable(  
+      
               columns: [
                 DataColumn(label: Text(  
                     'Hora',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white, ),
+                    textAlign: TextAlign.center,
+                    
                 )),  
                 DataColumn(label: Text(  
                     'L',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                    textAlign: TextAlign.center,
                 )),  
                 DataColumn(label: Text(  
                     'M',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                    textAlign: TextAlign.center,  
                 )),  
                 DataColumn(label: Text(  
                     'I',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                    textAlign: TextAlign.center, 
                 )),
                 DataColumn(label: Text(  
                     'J',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                    textAlign: TextAlign.center, 
                 )),
                 DataColumn(label: Text(  
                     'V',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                    textAlign: TextAlign.center, 
                 )),
                 DataColumn(label: Text(  
                     'S',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                    textAlign: TextAlign.center, 
                 )),
                 DataColumn(label: Text(  
                     'D',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
+                    textAlign: TextAlign.center, 
                 )),
               ],  
-              rows: [ for(List<dynamic> fila in resultado) DataRow(cells: [for(String elemento in fila) DataCell(Text(elemento))])],  
+              rows: [ for(List<dynamic> fila in resultado) DataRow(cells: [for(String elemento in fila) DataCell(Text(elemento, style: TextStyle(color: Colors.white),))])],  
             );
   }
 
