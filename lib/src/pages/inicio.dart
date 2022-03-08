@@ -51,11 +51,11 @@ class _InicioPageState extends State<InicioPage> {
         child: Column(
           children: [
             //contenedor superior
-              Flexible(
-                flex: 2,
-                child: SafeArea(
+               SafeArea(
                   child: Container(
-                   // color: Colors.green,
+                    //color: Colors.green,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height*0.09,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -107,105 +107,106 @@ class _InicioPageState extends State<InicioPage> {
                     ),
                   ),
                 ),
-              ),
+              
             
 
             //contenedor medio
-              Flexible(
-                flex: 6,
-                child: SafeArea(
-                  child: Container(
-                    // color: Colors.black,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.32,
-                          // color: Colors.amberAccent,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                                width: MediaQuery.of(context).size.width * 0.43,
-                                height: MediaQuery.of(context).size.height * 0.43,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  // color: Colors.blueGrey,
-                                  border: Border.all(
-                                    width: 5,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.28,
-                                    height:
-                                        MediaQuery.of(context).size.height * 0.10,
-                                    child: FittedBox(
-                                      child: Text(
-                                        estacion,
-                                        style: TextStyle(color: Colors.white),
-                                      ),
+                 SafeArea(
+                   child: Container(
+                       //color: Colors.black,
+                       width: MediaQuery.of(context).size.width,
+                       height: MediaQuery.of(context).size.height*0.53,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.32,
+                            // color: Colors.amberAccent,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.43,
+                                  height: MediaQuery.of(context).size.height * 0.43,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    // color: Colors.blueGrey,
+                                    border: Border.all(
+                                      width: 5,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                )),
-                          ),
-                        ),
-                        Container(
-                           //color: Colors.blue,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width,
-                          child: FittedBox(
-                            child: Text(
-                              'Radio CUCEI',
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width * 0.28,
+                                      height:
+                                          MediaQuery.of(context).size.height * 0.10,
+                                      child: FittedBox(
+                                        child: Text(
+                                          estacion,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  )),
                             ),
                           ),
-                        ),
-                        if (banderastring == true)
-                          StreamBuilder<IcyMetadata?>(
-                            stream: audioPlayer.icyMetadataStream,
-                            builder: (context, snapshot) {
-                              final metadata = snapshot.data;
-                              final title = metadata?.info?.title ?? '';
-                              final url = metadata?.info?.url;
-                              return Container(
-                                // color: Colors.white,
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                height: MediaQuery.of(context).size.height * 0.09,
-                                // color: Colors.teal,
-                
-                                child: SingleChildScrollView(
-                                  //scrollDirection: Axis.horizontal,
-                                  // child: FittedBox(
-                
-                                  child: Text(
-                                    title,
-                                    style: TextStyle(
-                                        color: Colors.pink.shade900,
-                                        fontSize: 23.5,
-                                        fontWeight: FontWeight.w900),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  //),
-                                ),
-                              );
-                            },
+                          Container(
+                             //color: Colors.blue,
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            width: MediaQuery.of(context).size.width,
+                            child: FittedBox(
+                              child: Text(
+                                'Radio CUCEI',
+                                style: TextStyle(color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
-                      ],
+                          if (banderastring == true)
+                            StreamBuilder<IcyMetadata?>(
+                              stream: audioPlayer.icyMetadataStream,
+                              builder: (context, snapshot) {
+                                final metadata = snapshot.data;
+                                final title = metadata?.info?.title ?? '';
+                                final url = metadata?.info?.url;
+                                return Container(
+                                  // color: Colors.white,
+                                  width: MediaQuery.of(context).size.width * 0.95,
+                                  height: MediaQuery.of(context).size.height * 0.09,
+                                  // color: Colors.teal,
+                                 
+                                  child: SingleChildScrollView(
+                                    //scrollDirection: Axis.horizontal,
+                                    // child: FittedBox(
+                                 
+                                    child: Text(
+                                      title,
+                                      style: TextStyle(
+                                          color: Colors.pink.shade900,
+                                          fontSize: 23.5,
+                                          fontWeight: FontWeight.w900),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    //),
+                                  ),
+                                );
+                              },
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
+                 ),
+                
+             
             
 
             //contenedor inferior
-            Flexible(
-              flex: 2,
-               child: SafeArea(
+                SafeArea(
                   child: Container(
-                    //  color: Colors.teal,
+                     //color: Colors.teal,
+                     width: MediaQuery.of(context).size.width,
+                     height: MediaQuery.of(context).size.height*0.15,
                     child: Column(
                       children: [
                         Container(
@@ -213,7 +214,7 @@ class _InicioPageState extends State<InicioPage> {
                           height: MediaQuery.of(context).size.height * 0.10,
                           
                           decoration: BoxDecoration(
-                            // color: Colors.amber,
+                             //color: Colors.amber,
                             border: Border(
                               bottom: BorderSide(
                                 color: Colors.pink.shade900,
@@ -262,7 +263,7 @@ class _InicioPageState extends State<InicioPage> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          // height: MediaQuery.of(context).size.height*0.10,
+                           height: MediaQuery.of(context).size.height*0.04,
                           // color: Colors.amber,
                 
                           child: Column(
@@ -327,7 +328,7 @@ class _InicioPageState extends State<InicioPage> {
                     ),
                   ),
                 ),
-             ),
+            
             
           ],
         ),

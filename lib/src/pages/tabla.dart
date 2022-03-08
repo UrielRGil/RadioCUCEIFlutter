@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:radiocucei/src/componentes/checkBoxState.dart';
 import 'package:radiocucei/src/componentes/utils.dart';
 
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -16,11 +17,14 @@ class _TablaPageState extends State<TablaPage> {
   late Future<Horario> futureHorario;
   List<dynamic> h = [];
   bool valor = false;
+  String elemento = "";
   @override
   void initState() {
     futureHorario = fetchHorario();
     super.initState();
   }
+ final notifications = [];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +150,7 @@ class _TablaPageState extends State<TablaPage> {
               color: MaterialStateProperty.all(Colors.white.withOpacity(0.75)),
               //cells: [for(String elemento in fila) DataCell(Text(elemento, style: TextStyle(color: Colors.pink),))])],
               cells: [
-                for (String elemento in fila)
+                for (elemento in fila)
                   DataCell(
                     ff(elemento),
                       
@@ -208,18 +212,24 @@ class _TablaPageState extends State<TablaPage> {
   }
 
   Widget ff(String ele){
-
     if(ele.contains(':')){
       return Text(ele, style: TextStyle(color: Colors.pink, fontSize: 18),);
+     
     }
-    return CheckboxListTile(
-                      title: Text(ele,style: TextStyle(fontSize: 18, color: Colors.pink,),),
-                      value: valor,
-                      onChanged: (bool? v) {
-                        setState(() {
-                          valor = v!;
-                        });
-                      });
+    return OutlinedButton(
+      onPressed: (){
+        print(ele);
+      }, 
+      child: Text(
+        ele,
+      ),
+      style: OutlinedButton.styleFrom(
+        minimumSize: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
+        textStyle: TextStyle(fontSize: 20),
+        primary: Colors.pink,
+        
+      ),
+    );
 
   }
 }
