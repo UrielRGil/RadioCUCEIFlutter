@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:radiocucei/src/componentes/checkBoxState.dart';
 import 'package:radiocucei/src/componentes/utils.dart';
-
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class TablaPage extends StatefulWidget {
@@ -80,80 +79,106 @@ class _TablaPageState extends State<TablaPage> {
 
   //https://www.woolha.com/tutorials/flutter-using-datatable-widget-examples
   DataTable generarHorario(List<dynamic> resultado) {
+    bool b = false;
     return DataTable(
       headingRowColor: MaterialStateColor.resolveWith(
           (states) => Colors.purple.withOpacity(0.5)),
+          
       columns: [
         DataColumn(
-            label: Text(
-          'Hora',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          textAlign: TextAlign.center,
-        )),
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                      'Hora',
+                      style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+            )),
         DataColumn(
-            label: Text(
-          'L',
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          textAlign: TextAlign.center,
-        )),
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                      'L',
+                      style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+            )),
         DataColumn(
-            label: Text(
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
           'M',
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
-        )),
+        ),
+            )),
         DataColumn(
-            label: Text(
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
           'I',
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
-        )),
+        ),
+            )),
         DataColumn(
-            label: Text(
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
           'J',
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
-        )),
+        ),
+            )),
         DataColumn(
-            label: Text(
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
           'V',
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
-        )),
+        ),
+            )),
         DataColumn(
-            label: Text(
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
           'S',
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
-        )),
+        ),
+            )),
         DataColumn(
-            label: Text(
+            label: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
           'D',
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
-        )),
+        ),
+            )
+        ),
       ],
       rows: [
         for (List<dynamic> fila in resultado)
           DataRow(
-              color: MaterialStateProperty.all(Colors.white.withOpacity(0.75)),
-              //cells: [for(String elemento in fila) DataCell(Text(elemento, style: TextStyle(color: Colors.pink),))])],
+             // color: MaterialStateProperty.all(Colors.white.withOpacity(0.75)),
+              //cells: [for(String elemento in fila) DataCell(Text(elemento,  style: TextStyle(color: Colors.pink),))])],
               cells: [
                 for (elemento in fila)
                   DataCell(
-                    ff(elemento),
-                      
+                    _DataRow(elemento: elemento, hora: fila[0])
                     ),
                     
               ])
@@ -211,25 +236,58 @@ class _TablaPageState extends State<TablaPage> {
     );
   }
 
-  Widget ff(String ele){
-    if(ele.contains(':')){
-      return Text(ele, style: TextStyle(color: Colors.pink, fontSize: 18),);
-     
-    }
+
+}
+
+class _DataRow extends StatefulWidget {
+  final String elemento;
+  final String hora;
+
+  _DataRow({ Key? key,required this.elemento, required this.hora }) : super(key: key);
+
+  @override
+  __DataRowState createState() => __DataRowState(elemento, hora);
+}
+
+class __DataRowState extends State<_DataRow> {
+  bool _isSelected = false;
+  final String elemento;
+  final String hora;
+
+  String mensaje = '';
+  __DataRowState(this.elemento, this.hora);
+  @override
+  Widget build(BuildContext context) {
+    
     return OutlinedButton(
-      onPressed: (){
-        print(ele);
+      onPressed: (elemento.contains(':')) ? null : (){
+        final scaffold = ScaffoldMessenger.of(context);
+        print(hora);
+        if(!_isSelected){
+          setState(() {
+         _isSelected = true;
+         mensaje = 'Haz agregado el programa $elemento a tu lista';
+       });
+        }else{
+          setState(() {
+         _isSelected = false;
+         mensaje = 'Haz eliminado el programa $elemento tu lista';
+       });
+        }
+       scaffold.showSnackBar( SnackBar(content: Text(mensaje), action: SnackBarAction(label: 'Ocultando', onPressed: scaffold.hideCurrentSnackBar), ));
+        print(elemento);
       }, 
       child: Text(
-        ele,
+        elemento,
       ),
       style: OutlinedButton.styleFrom(
         minimumSize: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
         textStyle: TextStyle(fontSize: 20),
         primary: Colors.pink,
+        backgroundColor: (_isSelected) ? Colors.purple : Colors.white.withOpacity(0.75),
+        
         
       ),
     );
-
   }
 }

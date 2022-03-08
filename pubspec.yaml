@@ -41,6 +41,7 @@ dependencies:
   music_visualizer: ^1.0.2
   multi_select_flutter: ^4.0.0
   http: ^0.13.4
+  onesignal_flutter: ^3.2.8
 
 dev_dependencies:
   flutter_test:
