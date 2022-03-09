@@ -112,6 +112,7 @@ class _InicioPageState extends State<InicioPage> {
 
             //contenedor medio
                  SafeArea(
+                   top: false,
                    child: Container(
                        //color: Colors.black,
                        width: MediaQuery.of(context).size.width,
@@ -203,6 +204,8 @@ class _InicioPageState extends State<InicioPage> {
 
             //contenedor inferior
                 SafeArea(
+                  top: false,
+                  bottom: false,
                   child: Container(
                      //color: Colors.teal,
                      width: MediaQuery.of(context).size.width,
