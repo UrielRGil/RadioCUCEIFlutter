@@ -29,17 +29,57 @@ class _TablaPageState extends State<TablaPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
+      body: Column(
+        children: [
+          //contenedor superios
+          Flexible(
+            flex: 4,
+            child: Container(
+              //color: Colors.amber,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
-                colors: [Colors.purple, Colors.red])),
-        child: SingleChildScrollView(
-          child: Container(
+                colors: [Colors.purple, Colors.red])
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height*0.07,
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height*0.07,
+                          ),
+                    child: Text(
+                      "Programacion radio CUCEI",
+                      style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                         
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height*0.10,
+                      child: Text(
+                      "Seleccione el programa que quiere que se le notifique",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  )
+                ],
+                ),
+              
+          
+            ),
+          ),
+
+          //contenedor medio
+            Flexible(
+              flex: 9,
             child: Container(
+               color: Colors.white,
+              child: SingleChildScrollView(
+          child: Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.all(20),
               child: FutureBuilder<Horario>(
                 future: futureHorario,
                 builder: (context, snapshot) {
@@ -70,9 +110,28 @@ class _TablaPageState extends State<TablaPage> {
                   return const CircularProgressIndicator();
                 },
               ),
-            ),
+           
           ),
         ),
+            ),
+          ),
+
+          //contenedor inferior
+            Flexible(
+              flex: 1,
+            child: Container(
+               //color: Colors.amber,
+                decoration: BoxDecoration(
+                gradient: LinearGradient(
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
+                colors: [Colors.purple, Colors.red])
+              ),
+              
+          
+            ),
+          ),
+        ],
       ),
     ));
   }
@@ -81,108 +140,68 @@ class _TablaPageState extends State<TablaPage> {
   DataTable generarHorario(List<dynamic> resultado) {
     bool b = false;
     return DataTable(
-      headingRowColor: MaterialStateColor.resolveWith(
-          (states) => Colors.purple.withOpacity(0.5)),
-          
+  
       columns: [
         DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                      'Hora',
-                      style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-            )),
+            label: filasprogramas('LUNES'),
+            ),
         DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                      'L',
-                      style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-            )),
-        DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-          'M',
-          style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          textAlign: TextAlign.center,
+            label: filasprogramas('MARTES'),
         ),
-            )),
         DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-          'I',
-          style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-            )),
+            label: filasprogramas('MIERCOLES'),
+            ),
         DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-          'J',
-          style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-            )),
+            label: filasprogramas('JUEVES'),
+            ),
         DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-          'V',
-          style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-            )),
+           label: filasprogramas('VIERNES'),
+           ),
         DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-          'S',
-          style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-            )),
+            label: filasprogramas('SABADO'),
+            ),
         DataColumn(
-            label: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-          'D',
-          style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-            )
+           label: filasprogramas('DOMINGO'),
         ),
       ],
       rows: [
         for (List<dynamic> fila in resultado)
           DataRow(
              // color: MaterialStateProperty.all(Colors.white.withOpacity(0.75)),
-              //cells: [for(String elemento in fila) DataCell(Text(elemento,  style: TextStyle(color: Colors.pink),))])],
               cells: [
                 for (elemento in fila)
-                  DataCell(
-                    _DataRow(elemento: elemento, hora: fila[0])
-                    ),
+                  if(!elemento.contains(':'))
+                    DataCell(
+                      _DataRow(elemento: elemento, hora: fila[0])
+                      ),
                     
               ])
       ],
+    );
+  }
+
+  Expanded filasprogramas(String dia){
+    final _estilosuperiorletras = TextStyle(color: Colors.purple, fontSize: 25, fontWeight: FontWeight.bold);
+    return Expanded(
+      child: Container(
+                alignment: Alignment.center,
+                 decoration: BoxDecoration(
+                   color: Colors.white,
+                   border: Border.all(
+                        color: Colors.pink,
+                        width: 1,
+                        style: BorderStyle.solid), 
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(1)
+                  ),
+                  ),
+                child: Text(
+                        dia,
+                        style:_estilosuperiorletras,
+                        textAlign: TextAlign.center,
+                        
+                      ),
+              ),
     );
   }
 
@@ -190,12 +209,6 @@ class _TablaPageState extends State<TablaPage> {
     return Column(
       children: <Widget>[
         Container(
-          height: MediaQuery.of(context).size.height * 0.70,
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.05,
-            bottom: 10,
-          ),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SingleChildScrollView(
@@ -203,35 +216,7 @@ class _TablaPageState extends State<TablaPage> {
             ),
           ),
         ),
-        MultiSelectDialogField(
-          items: itemsHorario,
-          title: const Text("Disponibilidad de Programas"),
-          selectedColor: Colors.pink,
-          decoration: BoxDecoration(
-            color: Colors.pink,
-            borderRadius: const BorderRadius.all(Radius.circular(40)),
-            border: Border.all(
-              color: Colors.pink,
-              width: 2,
-            ),
-          ),
-          buttonIcon: const Icon(
-            Icons.schedule,
-            color: Colors.white,
-          ),
-          buttonText: Text(
-            "Consultar Horarios",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-          ),
-          onConfirm: (List<String?> results) {
-            results.forEach((element) {
-              print(element);
-            });
-          },
-        ),
+        
       ],
     );
   }
@@ -260,7 +245,7 @@ class __DataRowState extends State<_DataRow> {
   Widget build(BuildContext context) {
     
     return OutlinedButton(
-      onPressed: (elemento.contains(':')) ? null : (){
+      onPressed: (){
         final scaffold = ScaffoldMessenger.of(context);
         print(hora);
         if(!_isSelected){
@@ -277,16 +262,34 @@ class __DataRowState extends State<_DataRow> {
        scaffold.showSnackBar( SnackBar(content: Text(mensaje), action: SnackBarAction(label: 'Ocultando', onPressed: scaffold.hideCurrentSnackBar), ));
         print(elemento);
       }, 
-      child: Text(
-        elemento,
+      child: Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width*0.25,
+            height: MediaQuery.of(context).size.height,
+            //color: Colors.blue,
+            alignment: Alignment.center,
+            child: Text(
+              hora,
+              style: TextStyle(color: Colors.pink, fontSize: 20),
+            ),
+          ),
+
+          Text(
+            elemento,
+          ),
+        ],
       ),
       style: OutlinedButton.styleFrom(
         minimumSize: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
         textStyle: TextStyle(fontSize: 20),
         primary: Colors.pink,
-        backgroundColor: (_isSelected) ? Colors.purple : Colors.white.withOpacity(0.75),
-        
-        
+        backgroundColor: (_isSelected) ? Colors.purple : Colors.white,
+        side: BorderSide(
+          color: Colors.pink,
+          width: 1.0,
+          style: BorderStyle.solid,
+        ),
       ),
     );
   }
