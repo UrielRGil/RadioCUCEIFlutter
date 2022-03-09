@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:radiocucei/src/componentes/utils.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
+//import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class TablaPage extends StatefulWidget {
