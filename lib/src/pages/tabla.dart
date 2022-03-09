@@ -53,7 +53,7 @@ class _TablaPageState extends State<TablaPage> {
                           ),
                     child: Text(
                       "Programacion radio CUCEI",
-                      style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold, fontFamily: 'Fredes'),
                     ),
                          
                   ),
@@ -62,7 +62,7 @@ class _TablaPageState extends State<TablaPage> {
                     height: MediaQuery.of(context).size.height*0.10,
                       child: Text(
                       "Seleccione el programa que quiere que se le notifique",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 20,fontFamily: 'FDredes'),
                     ),
                   )
                 ],
@@ -194,6 +194,7 @@ class _TablaPageState extends State<TablaPage> {
                   borderRadius: BorderRadius.all(
                     Radius.circular(1)
                   ),
+                  
                   ),
                 child: Text(
                         dia,
@@ -259,7 +260,7 @@ class __DataRowState extends State<_DataRow> {
          mensaje = 'Haz eliminado el programa $elemento tu lista';
        });
         }
-       scaffold.showSnackBar( SnackBar(content: Text(mensaje), action: SnackBarAction(label: 'Ocultando', onPressed: scaffold.hideCurrentSnackBar), ));
+       scaffold.showSnackBar( SnackBar(content: Text(mensaje),duration: const Duration(milliseconds: 800), action: SnackBarAction(label: 'Ocultar', onPressed: scaffold.hideCurrentSnackBar), ),);
         print(elemento);
       }, 
       child: Row(
@@ -271,7 +272,7 @@ class __DataRowState extends State<_DataRow> {
             alignment: Alignment.center,
             child: Text(
               hora,
-              style: TextStyle(color: Colors.pink, fontSize: 20),
+              style: TextStyle(color: (_isSelected) ? Colors.white : Colors.pink, fontSize: 20),
             ),
           ),
 
@@ -283,8 +284,8 @@ class __DataRowState extends State<_DataRow> {
       style: OutlinedButton.styleFrom(
         minimumSize: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height),
         textStyle: TextStyle(fontSize: 20),
-        primary: Colors.pink,
-        backgroundColor: (_isSelected) ? Colors.purple : Colors.white,
+        primary: (_isSelected) ? Colors.white : Colors.pink,
+        backgroundColor: (_isSelected) ? Colors.purple[400] : Colors.white,
         side: BorderSide(
           color: Colors.pink,
           width: 1.0,
