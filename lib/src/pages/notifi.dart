@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+
+class Notifi extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.pink,
+        title: const Text('Notificaciones'),
+      ),
+      body: Center(
+        child: Text('Notifications page'),
+      ),
+    );
+  }
+}
+
+/*
 class SingleChildScrollViewWidget extends StatelessWidget {
   final controller = ScrollController();
   var alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -92,3 +110,4 @@ class SingleChildScrollViewWidget extends StatelessWidget {
     controller.jumpTo(start);
   }
 }
+*/

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:radiocucei/src/models/notificacion.dart';
 import 'package:radiocucei/src/services/storage_service.dart';
 
-//TODO: Preguntar
+//TODO: Preguntar sobre el diseño de la pagina
 
 class NotificationsService extends ChangeNotifier {
   List<Programa> programas = [];
@@ -23,6 +23,7 @@ class NotificationsService extends ChangeNotifier {
     if (programas.isNotEmpty) {
       print("Guardando todo");
       programas.clear();
+      notifyListeners();
     }
   }
 

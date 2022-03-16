@@ -21,7 +21,7 @@ class _HomerPageState extends State<HomerPage>
     InicioPage(),
     TablaPage(),
     RedesPage(),
-    SingleChildScrollViewWidget(),
+    Notifi(),
   ];
 
   int _paginaactual = 0;
@@ -72,8 +72,8 @@ class _HomerPageState extends State<HomerPage>
               label: 'Redes',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Notifi',
+              icon: Icon(Icons.notifications_active_outlined),
+              label: 'Notificaciones',
             ),
           ],
         ));
