@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:radiocucei/src/widgets/widgets.dart';
 
 class Notifi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.red,
       appBar: AppBar(
         backgroundColor: Colors.pink,
         title: const Text('Notificaciones'),
       ),
-      body: Center(
-        child: Text('Notifications page'),
-      ),
+      body: Center(child: SusbscriptionTile(child: Text('Hola mundo'))),
     );
   }
 }
