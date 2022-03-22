@@ -51,3 +51,68 @@ class Programa {
 
   String get horario => _horario;
 }
+
+
+/* 
+// To parse this JSON data, do
+//
+//     final subscripciones = subscripcionesFromMap(jsonString);
+
+import 'dart:convert';
+
+class Subscripciones {
+    Subscripciones({
+        this.status,
+        this.data,
+    });
+
+    int status;
+    List<Datum> data;
+
+    factory Subscripciones.fromJson(String str) => Subscripciones.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Subscripciones.fromMap(Map<String, dynamic> json) => Subscripciones(
+        status: json["status"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+    );
+
+    Map<String, dynamic> toMap() => {
+        "status": status,
+        "data": List<dynamic>.from(data.map((x) => x.toMap())),
+    };
+}
+
+class Datum {
+    Datum({
+        this.codigoUsuario,
+        this.dia,
+        this.horario,
+        this.nombrePrograma,
+    });
+
+    int codigoUsuario;
+    String dia;
+    String horario;
+    String nombrePrograma;
+
+    factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+        codigoUsuario: json["codigo_usuario"],
+        dia: json["dia"],
+        horario: json["horario"],
+        nombrePrograma: json["nombre_programa"],
+    );
+
+    Map<String, dynamic> toMap() => {
+        "codigo_usuario": codigoUsuario,
+        "dia": dia,
+        "horario": horario,
+        "nombre_programa": nombrePrograma,
+    };
+}
+*/

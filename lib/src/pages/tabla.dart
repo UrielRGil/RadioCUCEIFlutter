@@ -39,7 +39,6 @@ class _TablaPageState extends State<TablaPage> {
           Flexible(
             flex: 4,
             child: Container(
-              //color: Colors.amber,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.bottomRight,

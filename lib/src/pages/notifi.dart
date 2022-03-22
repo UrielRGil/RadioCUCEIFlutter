@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,110 +28,13 @@ class Notifi extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
-                  ],
-                ),
-              ),
-            ),
-            SusbscriptionTile(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
-                  ],
-                ),
-              ),
-            ),
-            SusbscriptionTile(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
-                  ],
-                ),
-              ),
-            ),
-            SusbscriptionTile(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
-                  ],
-                ),
-              ),
-            ),
-            SusbscriptionTile(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
-                  ],
-                ),
-              ),
-            ),
-            SusbscriptionTile(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
-                  ],
-                ),
-              ),
-            ),
-            SusbscriptionTile(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
-                  ],
-                ),
-              ),
-            ),
-            SusbscriptionTile(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Nombre del programa'),
-                    const Text('Horario'),
-                    IconButton(
-                        onPressed: () {}, icon: const FaIcon(FontAwesome.trash))
+                    Text('Nombre del programa', style: _customTextStyle()),
+                    Text(
+                      'Horario',
+                      style: _customTextStyle(),
+                    ),
                   ],
                 ),
               ),
@@ -139,6 +44,8 @@ class Notifi extends StatelessWidget {
       ),
     );
   }
+
+  TextStyle _customTextStyle() => TextStyle(color: Colors.white, fontSize: 20);
 }
 
 /*
