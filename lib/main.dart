@@ -3,6 +3,8 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:radiocucei/src/app.dart';
 import 'package:radiocucei/src/services/storage_service.dart';
 
+//TODO: Revisar que hacer cuando un programa cambia de dia
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);

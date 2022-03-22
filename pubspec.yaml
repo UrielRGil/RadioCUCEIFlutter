@@ -44,8 +44,8 @@ dependencies:
   onesignal_flutter: ^3.2.8
   shared_preferences: ^2.0.13
   provider: ^6.0.2
-  mysql1: ^0.19.2
   collection: ^1.15.0
+  badges: ^2.0.2
 
 
 dev_dependencies:

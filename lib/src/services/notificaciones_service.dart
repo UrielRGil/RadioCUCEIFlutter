@@ -19,9 +19,8 @@ class NotificationsService extends ChangeNotifier {
     programas.removeAt(index);
   }
 
-  void saveAll() {
+  void saveAll() async {
     if (programas.isNotEmpty) {
-      print("Guardando todo");
       programas.clear();
       notifyListeners();
     }
