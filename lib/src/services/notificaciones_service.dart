@@ -1,15 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:radiocucei/src/models/notificacion.dart';
 import 'package:radiocucei/src/services/storage_service.dart';
-
+import 'package:http/http.dart' as http;
 //TODO: Preguntar sobre el diseño de la pagina
 
 class NotificationsService extends ChangeNotifier {
   List<Programa> programas = [];
+  final String _baseUrl = '148.202.152.33';
 
   void agregarProgramas(Programa programa) {
-    programa.codigoUsuario = AppStorage.idPlayer;
-
     programas.add(programa);
   }
 
@@ -21,11 +22,33 @@ class NotificationsService extends ChangeNotifier {
 
   void saveAll() async {
     if (programas.isNotEmpty) {
+      final json = programas.forEach((element) => element.toMap());
+      final url = Uri.http(_baseUrl, '/notificaciones.php');
+
+      //final resp = await http.post(url, body: json);
+
       programas.clear();
       notifyListeners();
     }
   }
 
   //TODO: Implementar
-  //Future<List<Programa>> obtenerNotificaciones() {}
+
+  Future<List<Programa>> obtenerNotificaciones() async {
+    final url = Uri.http(
+        _baseUrl, '/RadioCucei/favoritos.php', {'codigo': AppStorage.idPlayer});
+
+    final response = await http.get(url);
+    final json = addKey(response.body);
+
+    final programas = Subscripciones.fromJson(json);
+
+    return programas.data;
+  }
+
+  String addKey(String json) {
+    Map<String, dynamic> jsonChido = {'"data"': json};
+
+    return jsonChido.toString();
+  }
 }

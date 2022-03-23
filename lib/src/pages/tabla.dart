@@ -5,6 +5,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:collection/collection.dart';
 import 'package:radiocucei/src/models/notificacion.dart';
 import 'package:radiocucei/src/services/notificaciones_service.dart';
+import 'package:radiocucei/src/services/storage_service.dart';
 
 class TablaPage extends StatefulWidget {
   @override
@@ -261,15 +262,21 @@ class __DataRowState extends State<_DataRow> {
             _isSelected = true;
             mensaje = 'Haz agregado el programa $elemento a tu lista';
           });
-          notificationsService
-              .agregarProgramas(Programa(index, hora, elemento));
+          notificationsService.agregarProgramas(Programa(
+              codigoUsuario: AppStorage.idPlayer,
+              dia: index,
+              horario: hora,
+              nombrePrograma: elemento));
         } else {
           setState(() {
             _isSelected = false;
             mensaje = 'Haz eliminado el programa $elemento tu lista';
           });
-          notificationsService
-              .eliminarPrograma(Programa(index, hora, elemento));
+          notificationsService.eliminarPrograma(Programa(
+              codigoUsuario: AppStorage.idPlayer,
+              dia: index,
+              horario: hora,
+              nombrePrograma: elemento));
         }
         scaffold.showSnackBar(
           SnackBar(

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 enum dias { L, M, I, J, V, S }
 
+/*
 class Programa {
   late String _codigoUsuario;
   late String _dia;
@@ -51,68 +54,61 @@ class Programa {
 
   String get horario => _horario;
 }
+*/
 
-
-/* 
 // To parse this JSON data, do
 //
 //     final subscripciones = subscripcionesFromMap(jsonString);
 
-import 'dart:convert';
-
 class Subscripciones {
-    Subscripciones({
-        this.status,
-        this.data,
-    });
+  Subscripciones({
+    required this.data,
+  });
 
-    int status;
-    List<Datum> data;
+  List<Programa> data;
 
-    factory Subscripciones.fromJson(String str) => Subscripciones.fromMap(json.decode(str));
+  factory Subscripciones.fromJson(String str) =>
+      Subscripciones.fromMap(json.decode(str));
 
-    String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-    factory Subscripciones.fromMap(Map<String, dynamic> json) => Subscripciones(
-        status: json["status"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
-    );
+  factory Subscripciones.fromMap(Map<String, dynamic> json) => Subscripciones(
+        data: List<Programa>.from(json["data"].map((x) => Programa.fromMap(x))),
+      );
 
-    Map<String, dynamic> toMap() => {
-        "status": status,
+  Map<String, dynamic> toMap() => {
         "data": List<dynamic>.from(data.map((x) => x.toMap())),
-    };
+      };
 }
 
-class Datum {
-    Datum({
-        this.codigoUsuario,
-        this.dia,
-        this.horario,
-        this.nombrePrograma,
-    });
+class Programa {
+  Programa({
+    required this.codigoUsuario,
+    required this.dia,
+    required this.horario,
+    required this.nombrePrograma,
+  });
 
-    int codigoUsuario;
-    String dia;
-    String horario;
-    String nombrePrograma;
+  String codigoUsuario;
+  String dia;
+  String horario;
+  String nombrePrograma;
 
-    factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+  factory Programa.fromJson(String str) => Programa.fromMap(json.decode(str));
 
-    String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-    factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+  factory Programa.fromMap(Map<String, dynamic> json) => Programa(
         codigoUsuario: json["codigo_usuario"],
         dia: json["dia"],
         horario: json["horario"],
         nombrePrograma: json["nombre_programa"],
-    );
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "codigo_usuario": codigoUsuario,
         "dia": dia,
         "horario": horario,
         "nombre_programa": nombrePrograma,
-    };
+      };
 }
-*/

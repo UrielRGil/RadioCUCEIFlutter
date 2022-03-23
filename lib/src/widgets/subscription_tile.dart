@@ -6,16 +6,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //TODO: Revisar si es necesario utilizar el GestureDetector
 //TODO: Ver que datos mostrar
-class SusbscriptionTile extends StatefulWidget {
+class SubscriptionTile extends StatefulWidget {
   final Widget child;
 
-  const SusbscriptionTile({Key? key, required this.child}) : super(key: key);
+  const SubscriptionTile({Key? key, required this.child}) : super(key: key);
 
   @override
-  State<SusbscriptionTile> createState() => _SusbscriptionTileState();
+  State<SubscriptionTile> createState() => _SubscriptionTileState();
 }
 
-class _SusbscriptionTileState extends State<SusbscriptionTile> {
+class _SubscriptionTileState extends State<SubscriptionTile> {
   bool _isBlur = false;
 
   @override
