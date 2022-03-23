@@ -1,10 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:radiocucei/src/models/notificacion.dart';
 import 'package:radiocucei/src/services/notificaciones_service.dart';
 import 'package:radiocucei/src/widgets/widgets.dart';
 
@@ -15,6 +10,7 @@ class Notifi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notificationsService = Provider.of<NotificationsService>(context);
+    final programs = notificationsService.programas;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +34,7 @@ class Notifi extends StatelessWidget {
 
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                final programa = snapshot.data[index];
+                final programa = programs[index];
                 return SubscriptionTile(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -54,7 +50,7 @@ class Notifi extends StatelessWidget {
                   ),
                 ));
               },
-              itemCount: snapshot.data.length,
+              itemCount: programs.length,
             );
           },
         ),

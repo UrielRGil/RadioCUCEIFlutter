@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:radiocucei/src/models/notificacion.dart';
 import 'package:radiocucei/src/services/storage_service.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 //TODO: Preguntar sobre el diseño de la pagina
+//datos
 
 class NotificationsService extends ChangeNotifier {
   List<Programa> programas = [];
@@ -22,8 +22,15 @@ class NotificationsService extends ChangeNotifier {
 
   void saveAll() async {
     if (programas.isNotEmpty) {
-      final json = programas.forEach((element) => element.toMap());
+      Subscripciones subs = Subscripciones(data: programas);
+
+      final jsonMap = subs.toJson();
+
       final url = Uri.http(_baseUrl, '/notificaciones.php');
+
+      final resp = await http.post(url,
+          body: {'datos': jsonMap},
+          headers: {'content-type': 'application/x-www-form-urlencoded'});
 
       //final resp = await http.post(url, body: json);
 
@@ -41,9 +48,9 @@ class NotificationsService extends ChangeNotifier {
     final response = await http.get(url);
     final json = addKey(response.body);
 
-    final programas = Subscripciones.fromJson(json);
-
-    return programas.data;
+    programas = Subscripciones.fromJson(json).data;
+    notifyListeners();
+    return programas;
   }
 
   String addKey(String json) {
