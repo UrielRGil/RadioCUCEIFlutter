@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:radiocucei/src/models/notificacion.dart';
 import 'package:radiocucei/src/services/storage_service.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 //TODO: Preguntar sobre el diseño de la pagina
 //datos
 
@@ -26,11 +26,9 @@ class NotificationsService extends ChangeNotifier {
 
       final jsonMap = subs.toJson();
 
-      final url = Uri.http(_baseUrl, '/notificaciones.php');
+      final url = Uri.http(_baseUrl, '/notificaciones.php', {'datos': jsonMap});
 
-      final resp = await http.post(url,
-          body: {'datos': jsonMap},
-          headers: {'content-type': 'application/x-www-form-urlencoded'});
+      final resp = await http.post(url);
 
       //final resp = await http.post(url, body: json);
 
