@@ -12,7 +12,7 @@ class Myapp extends StatelessWidget {
       //child: HomaPage(),
       child: ChangeNotifierProvider(
           create: (BuildContext context) => NotificationsService(),
-          child: HomerPage()),
+          child: HomePage()),
     ));
   }
 }

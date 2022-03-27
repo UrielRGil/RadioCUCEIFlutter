@@ -28,11 +28,11 @@ class NotificationsService extends ChangeNotifier {
 
       final url = Uri.http(_baseUrl, '/notificaciones.php', {'datos': jsonMap});
 
-      final resp = await http.post(url);
+      //final resp = await http.post(url);
 
       //final resp = await http.post(url, body: json);
 
-      programas.clear();
+      //programas.clear();
       notifyListeners();
     }
   }

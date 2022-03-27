@@ -109,7 +109,6 @@ class _TablaPageState extends State<TablaPage> {
                             });
                           });
                         });
-                        print("LISTO");
                         return generarFormulario(h);
                       } else if (snapshot.hasError) {
                         return Text('${snapshot.error}');
@@ -190,7 +189,7 @@ class _TablaPageState extends State<TablaPage> {
   }
 
   Expanded filasprogramas(String dia) {
-    final _estilosuperiorletras = TextStyle(
+    var _estilosuperiorletras = const TextStyle(
         color: Colors.purple, fontSize: 25, fontWeight: FontWeight.bold);
     return Expanded(
       child: Container(
@@ -286,7 +285,6 @@ class __DataRowState extends State<_DataRow> {
                 label: 'Ocultar', onPressed: scaffold.hideCurrentSnackBar),
           ),
         );
-        print(elemento);
       },
       child: Row(
         children: [
@@ -310,10 +308,10 @@ class __DataRowState extends State<_DataRow> {
       style: OutlinedButton.styleFrom(
         minimumSize: Size(MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height),
-        textStyle: TextStyle(fontSize: 20),
+        textStyle: const TextStyle(fontSize: 20),
         primary: (_isSelected) ? Colors.white : Colors.pink,
         backgroundColor: (_isSelected) ? Colors.purple[400] : Colors.white,
-        side: BorderSide(
+        side: const BorderSide(
           color: Colors.pink,
           width: 1.0,
           style: BorderStyle.solid,
