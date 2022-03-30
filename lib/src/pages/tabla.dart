@@ -29,6 +29,12 @@ class _TablaPageState extends State<TablaPage> {
   }
 
   @override
+  void dispose() {
+    notificationService.saveAll();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     notificationService = Provider.of<NotificationsService>(context);
 

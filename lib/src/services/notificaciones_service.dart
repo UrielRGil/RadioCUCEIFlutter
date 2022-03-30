@@ -8,37 +8,34 @@ import 'package:http/http.dart' as http;
 
 class NotificationsService extends ChangeNotifier {
   List<Programa> programas = [];
+  List<Programa> nuevosProgramas = [];
   final String _baseUrl = '148.202.152.33';
 
   void agregarProgramas(Programa programa) {
-    programas.add(programa);
+    nuevosProgramas.add(programa);
   }
 
   void eliminarPrograma(Programa programa) {
-    final index = programas.indexWhere((element) =>
+    final index = nuevosProgramas.indexWhere((element) =>
         element.dia == programa.dia && element.horario == programa.horario);
-    programas.removeAt(index);
+    nuevosProgramas.removeAt(index);
   }
 
   void saveAll() async {
-    if (programas.isNotEmpty) {
-      Subscripciones subs = Subscripciones(data: programas);
+    if (nuevosProgramas.isNotEmpty) {
+      Subscripciones subs = Subscripciones(data: nuevosProgramas);
 
       final jsonMap = subs.toJson();
 
-      final url = Uri.http(_baseUrl, '/notificaciones.php', {'datos': jsonMap});
+      final url = Uri.http(_baseUrl, '/RadioCucei/notificaciones.php');
 
-      //final resp = await http.post(url);
+      final resp = await http.post(url, body: {'datos': jsonMap});
 
-      //final resp = await http.post(url, body: json);
-
-      //programas.clear();
       notifyListeners();
     }
   }
 
   //TODO: Implementar
-
   Future<List<Programa>> obtenerNotificaciones() async {
     final url = Uri.http(
         _baseUrl, '/RadioCucei/favoritos.php', {'codigo': AppStorage.idPlayer});

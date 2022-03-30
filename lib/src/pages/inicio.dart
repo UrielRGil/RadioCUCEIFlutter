@@ -40,7 +40,7 @@ class _InicioPageState extends State<InicioPage>
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
@@ -76,7 +76,7 @@ class _InicioPageState extends State<InicioPage>
                         top: MediaQuery.of(context).size.height * 0.02,
                       ),
 
-                      child: FittedBox(
+                      child: const FittedBox(
                         child: Text(
                           'FM Radio',
                           style: TextStyle(color: Colors.white),
@@ -167,15 +167,9 @@ class _InicioPageState extends State<InicioPage>
                           final title = metadata?.info?.title ?? '';
                           final url = metadata?.info?.url;
                           return Container(
-                            // color: Colors.white,
                             width: MediaQuery.of(context).size.width * 0.95,
                             height: MediaQuery.of(context).size.height * 0.09,
-                            // color: Colors.teal,
-
                             child: SingleChildScrollView(
-                              //scrollDirection: Axis.horizontal,
-                              // child: FittedBox(
-
                               child: Text(
                                 title,
                                 style: TextStyle(
@@ -217,7 +211,7 @@ class _InicioPageState extends State<InicioPage>
                         ),
                       ),
                       child: SingleChildScrollView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         reverse: dato,
                         controller: controller,
                         scrollDirection: Axis.horizontal,
@@ -352,13 +346,13 @@ class _InicioPageState extends State<InicioPage>
     start = MediaQuery.of(context).size.width * 4.19;
     controller.animateTo(
       start,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       curve: Curves.easeIn,
     );
   }
 
   Text retorno() {
-    return Text(
+    return const Text(
       '|',
       style: TextStyle(fontSize: 20, color: Colors.white),
     );
