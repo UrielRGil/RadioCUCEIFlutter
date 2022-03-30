@@ -252,7 +252,7 @@ class __DataRowState extends State<_DataRow> {
   final String elemento;
   final String hora;
   final String index;
-
+  bool resp = false;
   String mensaje = '';
   __DataRowState(this.elemento, this.hora, this.index);
   @override
@@ -265,32 +265,37 @@ class __DataRowState extends State<_DataRow> {
         if (!_isSelected) {
           setState(() {
             _isSelected = true;
-            mensaje = 'Haz agregado el programa $elemento a tu lista';
+            resp = notificationsService.agregarProgramas(
+                Programa.create(AppStorage.idPlayer, index, hora, elemento));
+            if (resp) {
+              mensaje = 'Haz agregado el programa $elemento a tu lista';
+            } else {
+              mensaje = 'Actualmente ya estas subscrito a este programa';
+            }
           });
-          notificationsService.agregarProgramas(Programa(
-              codigoUsuario: AppStorage.idPlayer,
-              dia: index,
-              horario: hora,
-              nombrePrograma: elemento));
         } else {
           setState(() {
             _isSelected = false;
-            mensaje = 'Haz eliminado el programa $elemento tu lista';
+            resp = notificationsService.eliminarPrograma(
+                Programa.create(AppStorage.idPlayer, index, hora, elemento));
+            if (resp) {
+              mensaje = 'Haz eliminado el programa $elemento tu lista';
+            } else {
+              mensaje = '';
+            }
           });
-          notificationsService.eliminarPrograma(Programa(
-              codigoUsuario: AppStorage.idPlayer,
-              dia: index,
-              horario: hora,
-              nombrePrograma: elemento));
         }
-        scaffold.showSnackBar(
-          SnackBar(
-            content: Text(mensaje),
-            duration: const Duration(milliseconds: 800),
-            action: SnackBarAction(
-                label: 'Ocultar', onPressed: scaffold.hideCurrentSnackBar),
-          ),
-        );
+        (mensaje.isNotEmpty)
+            ? scaffold.showSnackBar(
+                SnackBar(
+                  content: Text(mensaje),
+                  duration: const Duration(milliseconds: 800),
+                  action: SnackBarAction(
+                      label: 'Ocultar',
+                      onPressed: scaffold.hideCurrentSnackBar),
+                ),
+              )
+            : null;
       },
       child: Row(
         children: [
@@ -302,7 +307,7 @@ class __DataRowState extends State<_DataRow> {
             child: Text(
               hora,
               style: TextStyle(
-                  color: (_isSelected) ? Colors.white : Colors.pink,
+                  color: (_isSelected && resp) ? Colors.white : Colors.pink,
                   fontSize: 20),
             ),
           ),
@@ -315,8 +320,9 @@ class __DataRowState extends State<_DataRow> {
         minimumSize: Size(MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height),
         textStyle: const TextStyle(fontSize: 20),
-        primary: (_isSelected) ? Colors.white : Colors.pink,
-        backgroundColor: (_isSelected) ? Colors.purple[400] : Colors.white,
+        primary: (_isSelected && resp) ? Colors.white : Colors.pink,
+        backgroundColor:
+            (_isSelected && resp) ? Colors.purple[400] : Colors.white,
         side: const BorderSide(
           color: Colors.pink,
           width: 1.0,

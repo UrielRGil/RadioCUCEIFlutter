@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-enum dias { L, M, I, J, V, S }
-
 /*
 class Programa {
   late String _codigoUsuario;
@@ -93,6 +91,36 @@ class Programa {
   String dia;
   String horario;
   String nombrePrograma;
+
+  factory Programa.create(
+      String codigoUsuario, String dia, String horario, String nombrePrograma) {
+    switch (int.parse(dia)) {
+      case 1:
+        dia = 'L';
+        break;
+      case 2:
+        dia = 'M';
+        break;
+      case 3:
+        dia = 'I';
+        break;
+      case 4:
+        dia = 'J';
+        break;
+      case 5:
+        dia = 'V';
+        break;
+      case 6:
+        dia = 'S';
+        break;
+    }
+    horario += ':00';
+    return Programa(
+        codigoUsuario: codigoUsuario,
+        dia: dia,
+        horario: horario,
+        nombrePrograma: nombrePrograma);
+  }
 
   factory Programa.fromJson(String str) => Programa.fromMap(json.decode(str));
 

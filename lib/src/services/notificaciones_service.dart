@@ -9,16 +9,30 @@ import 'package:http/http.dart' as http;
 class NotificationsService extends ChangeNotifier {
   List<Programa> programas = [];
   List<Programa> nuevosProgramas = [];
+
   final String _baseUrl = '148.202.152.33';
 
-  void agregarProgramas(Programa programa) {
+  bool agregarProgramas(Programa programa) {
+    final exist = programas.indexWhere((element) =>
+        element.dia == programa.dia && element.horario == programa.horario);
+
+    if (exist != -1) return false;
+
     nuevosProgramas.add(programa);
+
+    return true;
   }
 
-  void eliminarPrograma(Programa programa) {
+  bool eliminarPrograma(Programa programa) {
     final index = nuevosProgramas.indexWhere((element) =>
         element.dia == programa.dia && element.horario == programa.horario);
-    nuevosProgramas.removeAt(index);
+    try {
+      nuevosProgramas.removeAt(index);
+    } catch (e) {
+      print(e);
+      return false;
+    }
+    return true;
   }
 
   void saveAll() async {

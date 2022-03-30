@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(context) {
     final programService = Provider.of<NotificationsService>(context);
-
+    programService.obtenerNotificaciones();
     return ChangeNotifierProvider(
       create: (_) => _NavegacionModel(),
       child: Scaffold(
