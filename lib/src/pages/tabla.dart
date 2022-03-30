@@ -5,6 +5,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:collection/collection.dart';
 import 'package:radiocucei/src/models/notificacion.dart';
 import 'package:radiocucei/src/services/notificaciones_service.dart';
+import 'package:radiocucei/src/services/storage_service.dart';
 
 class TablaPage extends StatefulWidget {
   @override
@@ -28,6 +29,12 @@ class _TablaPageState extends State<TablaPage> {
   }
 
   @override
+  void dispose() {
+    notificationService.saveAll();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     notificationService = Provider.of<NotificationsService>(context);
 
@@ -39,7 +46,6 @@ class _TablaPageState extends State<TablaPage> {
           Flexible(
             flex: 4,
             child: Container(
-              //color: Colors.amber,
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.bottomRight,
@@ -109,7 +115,6 @@ class _TablaPageState extends State<TablaPage> {
                             });
                           });
                         });
-                        print("LISTO");
                         return generarFormulario(h);
                       } else if (snapshot.hasError) {
                         return Text('${snapshot.error}');
@@ -190,7 +195,7 @@ class _TablaPageState extends State<TablaPage> {
   }
 
   Expanded filasprogramas(String dia) {
-    final _estilosuperiorletras = TextStyle(
+    var _estilosuperiorletras = const TextStyle(
         color: Colors.purple, fontSize: 25, fontWeight: FontWeight.bold);
     return Expanded(
       child: Container(
@@ -262,15 +267,21 @@ class __DataRowState extends State<_DataRow> {
             _isSelected = true;
             mensaje = 'Haz agregado el programa $elemento a tu lista';
           });
-          notificationsService
-              .agregarProgramas(Programa(index, hora, elemento));
+          notificationsService.agregarProgramas(Programa(
+              codigoUsuario: AppStorage.idPlayer,
+              dia: index,
+              horario: hora,
+              nombrePrograma: elemento));
         } else {
           setState(() {
             _isSelected = false;
             mensaje = 'Haz eliminado el programa $elemento tu lista';
           });
-          notificationsService
-              .eliminarPrograma(Programa(index, hora, elemento));
+          notificationsService.eliminarPrograma(Programa(
+              codigoUsuario: AppStorage.idPlayer,
+              dia: index,
+              horario: hora,
+              nombrePrograma: elemento));
         }
         scaffold.showSnackBar(
           SnackBar(
@@ -280,7 +291,6 @@ class __DataRowState extends State<_DataRow> {
                 label: 'Ocultar', onPressed: scaffold.hideCurrentSnackBar),
           ),
         );
-        print(elemento);
       },
       child: Row(
         children: [
@@ -304,10 +314,10 @@ class __DataRowState extends State<_DataRow> {
       style: OutlinedButton.styleFrom(
         minimumSize: Size(MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height),
-        textStyle: TextStyle(fontSize: 20),
+        textStyle: const TextStyle(fontSize: 20),
         primary: (_isSelected) ? Colors.white : Colors.pink,
         backgroundColor: (_isSelected) ? Colors.purple[400] : Colors.white,
-        side: BorderSide(
+        side: const BorderSide(
           color: Colors.pink,
           width: 1.0,
           style: BorderStyle.solid,
