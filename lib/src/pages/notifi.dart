@@ -36,19 +36,21 @@ class Notifi extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final programa = programs[index];
                 return SubscriptionTile(
+                    index: index,
                     child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(programa.nombrePrograma, style: _customTextStyle()),
-                      Text(
-                        programa.horario,
-                        style: _customTextStyle(),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(programa.nombrePrograma,
+                              style: _customTextStyle()),
+                          Text(
+                            programa.horario,
+                            style: _customTextStyle(),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ));
+                    ));
               },
               itemCount: programs.length,
             );
@@ -58,7 +60,8 @@ class Notifi extends StatelessWidget {
     );
   }
 
-  TextStyle _customTextStyle() => TextStyle(color: Colors.white, fontSize: 20);
+  TextStyle _customTextStyle() =>
+      const TextStyle(color: Colors.white, fontSize: 20);
 }
 
 /*

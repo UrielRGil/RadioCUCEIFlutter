@@ -1,15 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:radiocucei/src/services/notificaciones_service.dart';
 
-//TODO: Revisar si es necesario utilizar el GestureDetector
-//TODO: Ver que datos mostrar
 class SubscriptionTile extends StatefulWidget {
   final Widget child;
-
-  const SubscriptionTile({Key? key, required this.child}) : super(key: key);
+  final int index;
+  const SubscriptionTile({Key? key, required this.child, required this.index})
+      : super(key: key);
 
   @override
   State<SubscriptionTile> createState() => _SubscriptionTileState();
@@ -20,14 +19,31 @@ class _SubscriptionTileState extends State<SubscriptionTile> {
 
   @override
   Widget build(BuildContext context) {
+    final notificationService = Provider.of<NotificationsService>(context);
+    final program = notificationService.programas[widget.index];
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: Slidable(
           key: const Key('0'),
           endActionPane: ActionPane(motion: const DrawerMotion(), children: [
             SlidableAction(
-              onPressed: (_) {
-                print('eliminar');
+              onPressed: (BuildContext context) async {
+                final resp =
+                    await notificationService.unSubscribe(widget.index);
+
+                (resp)
+                    ? ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Haz cancelado la subscripcion a ${program.nombrePrograma}'),
+                          duration: const Duration(milliseconds: 800),
+                          action: SnackBarAction(
+                              label: 'Ocultar',
+                              onPressed: ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar),
+                        ),
+                      )
+                    : null;
               },
               backgroundColor: Colors.white.withOpacity(0.0),
               foregroundColor: Colors.white,

@@ -67,4 +67,10 @@ class NotificationsService extends ChangeNotifier {
 
     return jsonChido.toString();
   }
+
+  Future<bool> unSubscribe(int index) async {
+    //TODO: Implementar
+
+    return true;
+  }
 }
