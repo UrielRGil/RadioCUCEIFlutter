@@ -8,11 +8,13 @@ class Myapp extends StatelessWidget {
   @override
   Widget build(context) {
     return MaterialApp(
-        home: Center(
-      //child: HomaPage(),
-      child: ChangeNotifierProvider(
-          create: (BuildContext context) => NotificationsService(),
-          child: HomePage()),
-    ));
+      home: Center(
+        //child: HomaPage(),
+        child: ChangeNotifierProvider(
+            create: (BuildContext context) => NotificationsService(),
+            child: HomePage()),
+      ),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }

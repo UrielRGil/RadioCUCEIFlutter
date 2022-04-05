@@ -29,43 +29,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-/*
-BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            onTap: (index) {
-              if (currentIndex == 1 && index != currentIndex) {
-                programService.saveAll();
-              }
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            currentIndex: currentIndex,
-            backgroundColor: Colors.white,
-            selectedItemColor: Colors.purple.shade800,
-            unselectedItemColor: Colors.pink.shade600,
-            selectedFontSize: 20,
-            unselectedFontSize: 15,
-            iconSize: 30,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.audiotrack_outlined),
-                label: 'Inicio',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.event),
-                label: 'Tabla',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.alternate_email_outlined),
-                label: 'Redes',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_active_outlined),
-                label: 'Notificaciones',
-              ),
-            ],
-          ) */
 class _Navegacion extends StatelessWidget {
   const _Navegacion({Key? key}) : super(key: key);
 
@@ -127,7 +90,7 @@ class _Tabs extends StatelessWidget {
 
 class _NavegacionModel extends ChangeNotifier {
   int _paginaActual = 0;
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
 
   int get paginaActual => _paginaActual;
 
