@@ -4,6 +4,7 @@ import 'package:radiocucei/src/app.dart';
 import 'package:radiocucei/src/services/storage_service.dart';
 
 //TODO: Revisar que hacer cuando un programa cambia de dia
+//TODO: Generar las llaves de API directamente desde la cuenta de radiocucei
 //73face82-a15b-11ec-bdb1-96655dabad51
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
