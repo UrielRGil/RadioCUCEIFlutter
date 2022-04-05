@@ -56,8 +56,9 @@ class NotificationsService extends ChangeNotifier {
 
     final response = await http.get(url);
     final json = addKey(response.body);
-
-    programas = Subscripciones.fromJson(json).data;
+    if (!response.body.contains('0 results[]')) {
+      programas = Subscripciones.fromJson(json).data;
+    }  
     notifyListeners();
     return programas;
   }
