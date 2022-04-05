@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radiocucei/src/services/notificaciones_service.dart';
 import 'package:radiocucei/src/widgets/widgets.dart';
+import 'package:animate_do/animate_do.dart';
 
 //TODO: Implementar estilo al IconButton
 // TODO: Implementar estilo a las fuentes
@@ -32,23 +33,27 @@ class Notifi extends StatelessWidget {
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 final programa = programs[index];
-                return SubscriptionTile(
-                    index: index,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text('${programa.nombrePrograma} (${programa.dia})',
-                              style: _customTextStyle()),
-                          Expanded(child: Container()),
-                          Text(
-                            programa.horario,
-                            style: _customTextStyle(),
-                          ),
-                        ],
-                      ),
-                    ));
+                return BounceInUp(
+                  animate: true,
+                  duration: const Duration(milliseconds: 800),
+                  child: SubscriptionTile(
+                      index: index,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text('${programa.nombrePrograma} (${programa.dia})',
+                                style: _customTextStyle()),
+                            Expanded(child: Container()),
+                            Text(
+                              programa.horario,
+                              style: _customTextStyle(),
+                            ),
+                          ],
+                        ),
+                      )),
+                );
               },
               itemCount: programs.length,
             );
