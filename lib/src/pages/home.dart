@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 import 'package:radiocucei/src/pages/inicio.dart';
@@ -16,16 +17,27 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  @override
   Widget build(context) {
     final programService = Provider.of<NotificationsService>(context);
     programService.obtenerNotificaciones();
     return ChangeNotifierProvider(
       create: (_) => _NavegacionModel(),
-      child: Scaffold(
+      child: const Scaffold(
         body: _Tabs(),
         bottomNavigationBar: _Navegacion(),
       ),
     );
+  }
+
+  void initialization() async {
+    await Future.delayed(const Duration(seconds: 1));
+    FlutterNativeSplash.remove();
   }
 }
 

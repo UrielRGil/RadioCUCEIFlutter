@@ -43,7 +43,7 @@ class NotificationsService extends ChangeNotifier {
 
       final url = Uri.http(_baseUrl, '/RadioCucei/notificaciones.php');
 
-      final resp = await http.post(url, body: {'datos': jsonMap});
+      await http.post(url, body: {'datos': jsonMap});
 
       notifyListeners();
     }
@@ -69,8 +69,22 @@ class NotificationsService extends ChangeNotifier {
   }
 
   Future<bool> unSubscribe(int index) async {
-    //TODO: Implementar
+    final program = programas[index];
+    programas.removeAt(index);
 
-    return true;
+    final url = Uri.http(_baseUrl, 'RadioCucei/elimina.php', {
+      'id': program.codigoUsuario,
+      'dia': program.dia,
+      'hora': program.horario
+    });
+
+    final resp = await http.get(url);
+
+    if (resp.body == 'ok') {
+      notifyListeners();
+      return true;
+    }
+
+    return false;
   }
 }
