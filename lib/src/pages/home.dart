@@ -63,8 +63,8 @@ class _Navegacion extends StatelessWidget {
           label: 'Redes',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.notifications_active_outlined),
-          label: 'Notificaciones',
+          icon: Icon(Icons.view_list_rounded),
+          label: 'Subscripciones',
         ),
       ],
       backgroundColor: Colors.white,
