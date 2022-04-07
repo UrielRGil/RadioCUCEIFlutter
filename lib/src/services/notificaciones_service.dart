@@ -44,12 +44,13 @@ class NotificationsService extends ChangeNotifier {
       final url = Uri.http(_baseUrl, '/RadioCucei/notificaciones.php');
 
       await http.post(url, body: {'datos': jsonMap});
-
+      nuevosProgramas.clear();
+    
       notifyListeners();
     }
   }
 
-  //TODO: Implementar
+
   Future<List<Programa>> obtenerNotificaciones() async {
     final url = Uri.http(
         _baseUrl, '/RadioCucei/favoritos.php', {'codigo': AppStorage.idPlayer});
