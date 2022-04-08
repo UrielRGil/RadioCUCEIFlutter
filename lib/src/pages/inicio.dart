@@ -305,12 +305,6 @@ class _InicioPageState extends State<InicioPage>
     );
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
   void getAudio() async {
     scrollUp();
 
