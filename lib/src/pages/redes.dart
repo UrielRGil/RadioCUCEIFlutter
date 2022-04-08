@@ -10,7 +10,7 @@ class RedesPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         width: double.maxFinite,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
@@ -20,17 +20,17 @@ class RedesPage extends StatelessWidget {
             Flexible(
               flex: 1,
               child: Container(
-               // color: Colors.blue,
-              ),
+                  // color: Colors.blue,
+                  ),
             ),
             Flexible(
               flex: 3,
               child: Container(
-              //  color: Colors.red,
+                //  color: Colors.red,
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                   // color: Colors.black,
+                    // color: Colors.black,
                     width: MediaQuery.of(context).size.width * 0.90,
                     height: MediaQuery.of(context).size.height * 0.50,
                     child: Column(
@@ -38,17 +38,17 @@ class RedesPage extends StatelessWidget {
                         Align(
                           alignment: Alignment.topCenter,
                           child: Container(
-                           // color: Colors.white,
+                            // color: Colors.white,
                             width: MediaQuery.of(context).size.width * 0.15,
                             height: MediaQuery.of(context).size.height * 0.09,
                             child: Image.asset('assets/img/logo.png'),
                           ),
                         ),
                         Container(
-                         // color: Colors.orange,
+                          // color: Colors.orange,
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.13,
-                          child: FittedBox(
+                          child: const FittedBox(
                             child: Text(
                               'SIGUENOS',
                               textAlign: TextAlign.center,
@@ -60,10 +60,10 @@ class RedesPage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                         // color: Colors.blue,
+                          // color: Colors.blue,
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.05,
-                          child: FittedBox(
+                          child: const FittedBox(
                             child: Text(
                               'EN NUESTRAS REDES SOCIALES',
                               textAlign: TextAlign.center,
@@ -76,7 +76,7 @@ class RedesPage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                         // color: Colors.green,
+                          // color: Colors.green,
                           alignment: Alignment.topCenter,
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.09,
@@ -89,7 +89,7 @@ class RedesPage extends StatelessWidget {
                                     launch(
                                         'https://www.facebook.com/RadioCUCEI');
                                   },
-                                  icon: Icon(Icons.facebook,
+                                  icon: const Icon(Icons.facebook,
                                       size: 50, color: Colors.white),
                                   tooltip: 'Facebook',
                                 ),
@@ -100,7 +100,7 @@ class RedesPage extends StatelessWidget {
                                     launch(
                                         'https://www.youtube.com/user/radiocuceifm/videos');
                                   },
-                                  icon: Icon(FontAwesome.youtube_play,
+                                  icon: const Icon(FontAwesome.youtube_play,
                                       size: 50, color: Colors.white),
                                   tooltip: 'Youtube',
                                 ),
@@ -111,7 +111,7 @@ class RedesPage extends StatelessWidget {
                                     launch(
                                         'https://soundcloud.com/radiocuceifm');
                                   },
-                                  icon: Icon(FontAwesome.soundcloud,
+                                  icon: const Icon(FontAwesome.soundcloud,
                                       size: 50, color: Colors.white),
                                   tooltip: 'soundcloud',
                                 ),
@@ -122,7 +122,7 @@ class RedesPage extends StatelessWidget {
                                     launch(
                                         'https://www.instagram.com/RadioCucei/');
                                   },
-                                  icon: Icon(Ionicons.logo_instagram,
+                                  icon: const Icon(Ionicons.logo_instagram,
                                       size: 50, color: Colors.white),
                                   tooltip: 'Instagram',
                                 ),
@@ -132,7 +132,7 @@ class RedesPage extends StatelessWidget {
                                   onPressed: () {
                                     launch('https://twitter.com/RadioCUCEIFM');
                                   },
-                                  icon: Icon(Ionicons.logo_twitter,
+                                  icon: const Icon(Ionicons.logo_twitter,
                                       size: 50, color: Colors.white),
                                   tooltip: 'Twitter',
                                 ),
@@ -149,8 +149,8 @@ class RedesPage extends StatelessWidget {
             Flexible(
               flex: 1,
               child: Container(
-               // color: Colors.purple,
-              ),
+                  // color: Colors.purple,
+                  ),
             ),
           ],
         ),

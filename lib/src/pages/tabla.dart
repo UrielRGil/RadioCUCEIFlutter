@@ -38,8 +38,7 @@ class _TablaPageState extends State<TablaPage> {
   Widget build(BuildContext context) {
     notificationService = Provider.of<NotificationsService>(context);
 
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       body: Column(
         children: [
           //contenedor superios
@@ -51,36 +50,39 @@ class _TablaPageState extends State<TablaPage> {
                       begin: Alignment.bottomRight,
                       end: Alignment.topLeft,
                       colors: [Colors.purple, Colors.red])),
-              child: Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.07,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 16),
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.07,
+                      ),
+                      child: const Text(
+                        "Programacion radio CUCEI",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Fredes'),
+                      ),
                     ),
-                    child: const Text(
-                      "Programacion radio CUCEI",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Fredes'),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.10,
-                    child: const Text(
-                      "Seleccione el programa que quiere que se le notifique",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'FDredes'),
-                    ),
-                  )
-                ],
+                    const SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: const Text(
+                        "Seleccione el programa que quiere que se le notifique",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: 'FDredes'),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -141,7 +143,7 @@ class _TablaPageState extends State<TablaPage> {
           ),
         ],
       ),
-    ));
+    );
   }
 
   //https://www.woolha.com/tutorials/flutter-using-datatable-widget-examples
@@ -171,10 +173,7 @@ class _TablaPageState extends State<TablaPage> {
         ),
       ],
       rows: [
-        for (List<dynamic> fila in resultado)
-          DataRow(
-              // color: MaterialStateProperty.all(Colors.white.withOpacity(0.75)),
-              cells: _makeCells(fila))
+        for (List<dynamic> fila in resultado) DataRow(cells: _makeCells(fila))
       ],
     );
   }

@@ -65,8 +65,8 @@ class _InicioPageState extends State<InicioPage>
                       margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      child: Image.asset(
-                        'assets/img/logo.png',
+                      child: const Image(
+                        image: AssetImage('assets/img/radiocucei.gif'),
                         fit: BoxFit.fill,
                       ),
                     ),

@@ -21,7 +21,7 @@ void main() async {
   await AppStorage.init();
   final resp = AppStorage.isPlayerIdSave();
   if (!resp) {
-    final deviceState = OneSignal.shared.getDeviceState().then((state) {
+    OneSignal.shared.getDeviceState().then((state) {
       AppStorage.savePlayerId(state?.userId);
     });
   }
