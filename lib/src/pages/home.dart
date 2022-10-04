@@ -1,3 +1,4 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
@@ -6,9 +7,14 @@ import 'package:radiocucei/src/pages/inicio.dart';
 import 'package:radiocucei/src/pages/tabla.dart';
 import 'package:radiocucei/src/pages/redes.dart';
 import 'package:radiocucei/src/pages/notifi.dart';
+import 'package:radiocucei/src/services/audio_player_handler.dart';
 import 'package:radiocucei/src/services/notificaciones_service.dart';
 
 class HomePage extends StatefulWidget {
+  final AudioPlayerHandler audioHandler;
+
+  const HomePage({Key? key, required this.audioHandler}) : super(key: key);
+
   @override
   createState() {
     return _HomePageState();
@@ -28,9 +34,11 @@ class _HomePageState extends State<HomePage> {
     programService.obtenerNotificaciones();
     return ChangeNotifierProvider(
       create: (_) => _NavegacionModel(),
-      child: const Scaffold(
-        body: _Tabs(),
-        bottomNavigationBar: _Navegacion(),
+      child: Scaffold(
+        body: _Tabs(
+          audioHandler: widget.audioHandler,
+        ),
+        bottomNavigationBar: const _Navegacion(),
       ),
     );
   }
@@ -80,8 +88,10 @@ class _Navegacion extends StatelessWidget {
 }
 
 class _Tabs extends StatelessWidget {
+  final AudioPlayerHandler audioHandler;
   const _Tabs({
     Key? key,
+    required this.audioHandler,
   }) : super(key: key);
 
   @override
@@ -91,7 +101,7 @@ class _Tabs extends StatelessWidget {
       controller: navegacionModel.pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: <Widget>[
-        InicioPage(),
+        InicioPage(audioHandler: audioHandler),
         TablaPage(),
         RedesPage(),
         Notifi(),

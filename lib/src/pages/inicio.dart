@@ -1,7 +1,13 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:radiocucei/src/services/audio_player_handler.dart';
+import 'package:radiocucei/src/widgets/widgets.dart';
 
 class InicioPage extends StatefulWidget {
+  final AudioPlayerHandler audioHandler;
+
+  const InicioPage({Key? key, required this.audioHandler}) : super(key: key);
   @override
   createState() {
     return _InicioPageState();
@@ -24,20 +30,12 @@ class _InicioPageState extends State<InicioPage>
   void initState() {
     item = List.generate(11, (index) => index.toDouble());
     super.initState();
-
-    _getconexion();
-  }
-
-  Future<void> _getconexion() async {
-    try {
-      await audioPlayer.setUrl('http://s3.streammonster.com:8225/stream');
-    } catch (e) {
-      print("Error loading audio source: $e");
-    }
   }
 
   @override
   Widget build(context) {
+    final _audioHandler = widget.audioHandler;
+
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -51,8 +49,7 @@ class _InicioPageState extends State<InicioPage>
           children: [
             //contenedor superior
             SafeArea(
-              child: Container(
-                //color: Colors.green,
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.09,
                 child: Row(
@@ -87,20 +84,25 @@ class _InicioPageState extends State<InicioPage>
                       ),
                     ),
                     Container(
-                      //color: Colors.orange,
                       height: MediaQuery.of(context).size.height * 0.06,
                       width: MediaQuery.of(context).size.width * 0.20,
                       alignment: Alignment.topCenter,
-
-                      child: IconButton(
-                          onPressed: () {
-                            getAudio();
-                          },
-                          icon: Icon(
-                            playing == false ? Icons.play_arrow : Icons.pause,
-                            color: Colors.white,
-                            size: 50,
-                          )),
+                      child: StreamBuilder(
+                          stream: _audioHandler.playbackState
+                              .map((state) => state.playing)
+                              .distinct(),
+                          builder: (context, snapshot) {
+                            final playing = (snapshot.data ?? false) as bool;
+                            if (playing) {
+                              return ActionButton(
+                                  icon: Icons.pause,
+                                  onPressed: _audioHandler.pause);
+                            } else {
+                              return ActionButton(
+                                  icon: Icons.play_arrow,
+                                  onPressed: _audioHandler.play);
+                            }
+                          }),
                     ),
                   ],
                 ),
@@ -113,7 +115,7 @@ class _InicioPageState extends State<InicioPage>
               height: MediaQuery.of(context).size.height * 0.53,
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.32,
                     // color: Colors.amberAccent,
@@ -132,12 +134,12 @@ class _InicioPageState extends State<InicioPage>
                           ),
                           child: Align(
                             alignment: Alignment.center,
-                            child: Container(
+                            child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.28,
                               height: MediaQuery.of(context).size.height * 0.10,
                               child: FittedBox(
                                 child: Text(
-                                  estacion,
+                                  _audioHandler.estacion,
                                   style: const TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -145,7 +147,7 @@ class _InicioPageState extends State<InicioPage>
                           )),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.06,
                     width: MediaQuery.of(context).size.width,
                     child: const FittedBox(
@@ -156,37 +158,35 @@ class _InicioPageState extends State<InicioPage>
                       ),
                     ),
                   ),
-                  if (banderastring == true)
-                    StreamBuilder<IcyMetadata?>(
-                      stream: audioPlayer.icyMetadataStream,
-                      builder: (context, snapshot) {
-                        final metadata = snapshot.data;
-                        final title = metadata?.info?.title ?? '';
-                        final url = metadata?.info?.url;
+                  StreamBuilder<IcyMetadata?>(
+                    stream: _audioHandler.player.icyMetadataStream,
+                    builder: (context, snapshot) {
+                      final metadata = snapshot.data;
+                      final title = metadata?.info?.title ?? '';
 
-                        return Container(
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: SingleChildScrollView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            child: Text(
-                              title,
-                              style: TextStyle(
-                                  color: Colors.pink.shade900,
-                                  fontSize: 23.5,
-                                  fontWeight: FontWeight.w900),
-                              textAlign: TextAlign.center,
-                            ),
-                            //),
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.95,
+                        child: SingleChildScrollView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                                color: Colors.pink.shade900,
+                                fontSize: 23.5,
+                                fontWeight: FontWeight.w900),
+                            textAlign: TextAlign.center,
                           ),
-                        );
-                      },
-                    ),
+                          //),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
 
             //contenedor inferior
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.15,
               child: Column(
@@ -212,7 +212,7 @@ class _InicioPageState extends State<InicioPage>
                           item.length,
                           (index) => Align(
                             alignment: Alignment.center,
-                            child: Container(
+                            child: SizedBox(
                               height: MediaQuery.of(context).size.height,
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: Center(
@@ -239,7 +239,7 @@ class _InicioPageState extends State<InicioPage>
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.04,
                     child: Column(
@@ -254,7 +254,7 @@ class _InicioPageState extends State<InicioPage>
                               item.length,
                               (index) => Align(
                                 alignment: Alignment.center,
-                                child: Container(
+                                child: SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.5,
                                   child: Center(
@@ -303,26 +303,6 @@ class _InicioPageState extends State<InicioPage>
         ),
       ),
     );
-  }
-
-  void getAudio() async {
-    scrollUp();
-
-    if (playing) {
-      audioPlayer.pause();
-      setState(() {
-        playing = false;
-      });
-    } else {
-      audioPlayer.play();
-      setState(() {
-        estacion = '96.7';
-        playing = true;
-        x = 0.34;
-        banderastring = true;
-        dato == true;
-      });
-    }
   }
 
   void scrollUp() {
